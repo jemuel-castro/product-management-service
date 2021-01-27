@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+                      
+	<changeSet author="jemuel.castro"
+		id="changelog-sari_sari-1.0.0" failOnError="true">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<sequenceExists sequenceName="products_seq" />
+			</not>
+		</preConditions>
+		<sql>
+			CREATE SEQUENCE products_seq
+			MINVALUE 1
+			MAXVALUE
+			9223372036854775807
+			INCREMENT BY 1
+			START WITH 1
+		</sql>
+	</changeSet>
+
+	<changeSet author="jemuel.castro"
+		id="changelog-sari_sari-1.0.1" failOnError="true">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="PRODUCT" />
+			</not>
+		</preConditions>
+		<createTable tableName="PRODUCT">
+			<column name="ID" type="BIGINT"
+				defaultValueSequenceNext="products_seq">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="NAME" type="VARCHAR2(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PRICE" type="VARCHAR2(20)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+</databaseChangeLog>
